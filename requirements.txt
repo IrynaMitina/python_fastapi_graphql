@@ -1,0 +1,6 @@
+fastapi==0.91.0
+uvicorn==0.20.0
+strawberry-graphql[fastapi]==0.156.4
+aiosqlite==0.18.0
+databases==0.7.0
+sqlalchemy==1.4.46
