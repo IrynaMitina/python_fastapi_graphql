@@ -1,27 +1,7 @@
-import databases
-import sqlalchemy
+from sqlalchemy.ext.asyncio import create_async_engine
+from sqlalchemy.ext.asyncio import async_sessionmaker
 
 
-DATABASE_URL = "sqlite:///./test.db"
-DB = databases.Database(DATABASE_URL)
-
-
-metadata = sqlalchemy.MetaData()
-engine = sqlalchemy.create_engine(
-    DATABASE_URL, connect_args={"check_same_thread": False}
-)
-PERSONS_TABLE = sqlalchemy.Table(
-    "persons", metadata,
-    sqlalchemy.Column("id", sqlalchemy.Integer, primary_key=True, autoincrement=True),
-    autoload=True, autoload_with=engine
-)
-
-MOVIES_TABLE = sqlalchemy.Table(
-    "movies", metadata,
-    sqlalchemy.Column("id", sqlalchemy.Integer, primary_key=True, autoincrement=True),
-    autoload=True, autoload_with=engine
-)
-
-ACTORS_TABLE = sqlalchemy.Table(
-    "actors", metadata, autoload=True, autoload_with=engine
-)
+DB_URL = "sqlite+aiosqlite:///./test.db"
+engine = create_async_engine(DB_URL, echo=True) 
+async_session = async_sessionmaker(engine, expire_on_commit=False)

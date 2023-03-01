@@ -113,12 +113,16 @@ add new movie:
 ```
 mutation {
   addMovie(
-    title: "Trust"
-    description: "money"
-    premiereDate: "2020-11-27"
-  ) {
+    title: "night in Paris"
+    releaseYear: "1991"
+    directorId: 1
+    genres: "thriller"
+    country: "Brasil"
+  ){
     id
-    title
   }
 }
 ```
+
+## note
+commit `d85df33` contains start implementation based on `databases` and `sqlalchemy core`

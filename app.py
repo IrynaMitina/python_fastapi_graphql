@@ -2,20 +2,15 @@ from fastapi import FastAPI
 import strawberry
 from strawberry.fastapi import GraphQLRouter
 
-from db_utils import DB
-from graphql_types import Query, Mutation
+from db_utils import engine as db_engine
+from graphql_schema import Query, Mutation
 
 app = FastAPI()
 
 
-@app.on_event("startup")
-async def startup():
-    await DB.connect()  # init connection pool
-
-
 @app.on_event("shutdown")
 async def shutdown():
-    await DB.disconnect()  # close all db connections
+    await db_engine.dispose() 
 
 
 schema = strawberry.Schema(query=Query, mutation=Mutation)
